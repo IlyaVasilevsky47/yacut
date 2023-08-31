@@ -1,37 +1,39 @@
-Клонировать репозиторий и перейти в него в командной строке:
+# yacut
+Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 
-```
-git clone 
-```
+## Основная возможность:
+- Генерация коротких ссылок и связь их с исходными длинными ссылками;
+- Переадресация на исходный адрес при обращении к коротким ссылкам.
 
-```
-cd yacut
-```
-
-Cоздать и активировать виртуальное окружение:
-
-```
-python3 -m venv venv
+## Запуск проекта:
+1. Клонируем проект.
+```bash
+    git clone git@github.com:IlyaVasilevsky47/yacut.git
 ```
 
-* Если у вас Linux/macOS
-
-    ```
-    source venv/bin/activate
-    ```
-
-* Если у вас windows
-
-    ```
+2. Создайте и активируйте виртуальное окружение, обновите менеджер пакетов pip и установите зависимости из файла requirements.txt.
+```bash
+    python -m venv venv
+    # Windows
     source venv/scripts/activate
-    ```
-
-Установить зависимости из файла requirements.txt:
-
-```
-python3 -m pip install --upgrade pip
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
 ```
 
+3. Запускаем проект.
+```bash
+    flask run
 ```
-pip install -r requirements.txt
-```
+
+## Автор:
+- Василевский И.А.
+- [Почта](vasilevskijila047@gmail.com)
+- [Вконтакте](https://vk.com/ilya.vasilevskiy47)
+
+
+## Технический стек
+- Python 3.7.9
+- Flask 2.0.2
+- Flask-SQLAlchemy 2.5.1
+- Flask-WTF 1.0.0
+- Flask-Migrate 3.1.0

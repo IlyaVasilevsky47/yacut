@@ -67,6 +67,8 @@ def test_redirect_url(client, short_python_url):
     assert got.status_code == 302, (
         'При перенаправлении по короткому адресу убедитесь, что возвращается статус-код `302`'
     )
+    print(got.location)
+    print(short_python_url.original)
     assert got.location == short_python_url.original, (
         'При перенаправлении по короткому адресу убедитесь в корректности оригинального адреса'
     )

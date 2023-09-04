@@ -11,16 +11,28 @@
     git clone git@github.com:IlyaVasilevsky47/yacut.git
 ```
 
-2. Создайте и активируйте виртуальное окружение, обновите менеджер пакетов pip и установите зависимости из файла requirements.txt.
+2. Создаем и активируем виртуальное окружение.
 ```bash
     python -m venv venv
     # Windows
     source venv/scripts/activate
+```
+
+3. Обновляем менеджер пакетов pip и устанавливаем зависимости из файла requirements.txt.
+```bash
     python -m pip install --upgrade pip
     pip install -r requirements.txt
 ```
 
-3. Запускаем проект.
+4. Создаем базу данных. 
+```bash
+    flask shell
+    from yacut import db
+    db.create_all()
+    exit()
+```
+
+5. Запускаем проект.
 ```bash
     flask run
 ```

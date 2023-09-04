@@ -2,10 +2,9 @@ from http import HTTPStatus
 
 from flask import jsonify, request, url_for
 
-from . import app, db
+from . import CLICK_ON_A_SHORT_LINK, app
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
-from .views import get_unique_short_id, validate_short
 
 
 @app.route('/api/id/', methods=['POST'])
@@ -17,40 +16,26 @@ def add_url():
     if 'url' not in data:
         raise InvalidAPIUsage('"url" является обязательным полем!')
 
-    short = data.get('custom_id')
-    if not short:
-        short = get_unique_short_id()
-    else:
-        if validate_short(short):
-            raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
+    try:
+        urlmap = URLMap.created_object(
+            original=data.get('url'),
+            short=data.get('custom_id')
+        )
+    except Exception as error:
+        raise InvalidAPIUsage(str(error))
 
-        if URLMap.query.filter_by(short=short).first():
-            raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
-
-    urlmap = URLMap(original=data.get('url'), short=short)
-    db.session.add(urlmap)
-    db.session.commit()
     return (
-        jsonify(
-            dict(
-                url=urlmap.original,
-                short_link=f'{url_for("index_view", _external=True)}{urlmap.short}',
-            )
-        ),
+        jsonify(dict(
+            url=urlmap.original,
+            short_link=f'{url_for(CLICK_ON_A_SHORT_LINK, short_id=urlmap.short, _external=True)}',
+        )),
         HTTPStatus.CREATED,
     )
 
 
 @app.route('/api/id/<short_id>/', methods=['GET'])
 def get_original(short_id):
-    try:
-        return (
-            jsonify(
-                dict(
-                    url=URLMap.query.filter_by(short=short_id).first().original,
-                )
-            ),
-            HTTPStatus.OK,
-        )
-    except AttributeError:
-        raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
+    short = URLMap.checking_uniqueness_short(short_id)
+    if short:
+        return jsonify(dict(url=short.original)), HTTPStatus.OK
+    raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)

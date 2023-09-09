@@ -51,10 +51,10 @@
                 <h5 class="text-center">{{ message }}</h5>
               {% endfor %}
             {% endwith %}
-            {% if urlmap %}
+            {% if link_short %}
               <h5 class="text-center">
                 Ваша новая ссылка готова:
-                <a href="{{ url_for('short_view', short_id=urlmap.short, _external=True) }}" class="nav-link">{{ url_for('short_view', short_id=urlmap.short, _external=True) }}</a>
+                <a href="{{ link_short }}" class="nav-link">{{ link_short }}</a>
               </h5>
             {% endif %}
           </p>

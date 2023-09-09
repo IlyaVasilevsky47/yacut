@@ -8,6 +8,4 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-CLICK_ON_A_SHORT_LINK = 'short_view'
-
 from . import api_views, error_handlers, models, views

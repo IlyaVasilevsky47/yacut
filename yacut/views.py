@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from flask import abort, flash, redirect, render_template, url_for
-from settings import Config
+from settings import SHORT_LINK_VIEW
 
 from . import app
 from .forms import URLMapForm
@@ -21,8 +21,8 @@ def index_view():
             'index.html',
             form=form,
             link_short=url_for(
-                Config.SHORT_LINK_VIEW,
-                short_id=URLMap.created_object(
+                SHORT_LINK_VIEW,
+                short_id=URLMap.form_post(
                     original=form.original_link.data, short=short
                 ).short,
                 _external=True,
@@ -30,10 +30,9 @@ def index_view():
         )
     except ValueError as error:
         flash(error)
-        return render_template('index.html', form=form)
     except RuntimeError:
         flash(FLASH_UNIQUE_SHORT.format(short=short))
-        return render_template('index.html', form=form)
+    return render_template('index.html', form=form)
 
 
 @app.route('/<short_id>', methods=['GET'])

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from settings import Config
+from settings import LENGTH_ORIGINAL, LENGTH_SHORT, REGULAR_EXPRESSION
 from wtforms import SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional, Regexp
 
@@ -18,16 +18,16 @@ class URLMapForm(FlaskForm):
     original_link = URLField(
         ORIGINAL_LINK,
         validators=[
-            Length(max=Config.LONG_LINK),
+            Length(max=LENGTH_ORIGINAL),
             DataRequired(message=ERROR_REQUIRED),
         ]
     )
     custom_id = URLField(
         CUSTOM_ID,
         validators=[
-            Length(max=Config.LENGTH_SHORT),
+            Length(max=LENGTH_SHORT),
             Optional(),
-            Regexp(Config.REGULAR_EXPRESSION, message=ERROR_VALIDATE_SHORT)
+            Regexp(REGULAR_EXPRESSION, message=ERROR_VALIDATE_SHORT)
         ]
     )
     submit = SubmitField(SUBMIT)

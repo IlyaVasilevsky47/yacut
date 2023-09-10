@@ -26,10 +26,8 @@
 
 4. Создаем базу данных. 
 ```bash
-    flask shell
-    from yacut import db
-    db.create_all()
-    exit()
+    flask db migrate
+    flask db upgrade
 ```
 
 5. Запускаем проект.

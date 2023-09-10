@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from flask import jsonify, request, url_for
-from settings import Config
+from settings import SHORT_LINK_VIEW
 
 from . import app
 from .error_handlers import InvalidAPIUsage
@@ -17,7 +17,6 @@ def add_url():
     data = request.get_json()
     if data is None:
         raise InvalidAPIUsage(NO_BODY_REQUEST)
-
     if 'url' not in data:
         raise InvalidAPIUsage(URL_REQUIRED)
     try:
@@ -26,8 +25,8 @@ def add_url():
                 dict(
                     url=data['url'],
                     short_link=url_for(
-                        Config.SHORT_LINK_VIEW,
-                        short_id=URLMap.created_object(
+                        SHORT_LINK_VIEW,
+                        short_id=URLMap.json_post(
                             original=data['url'], short=data.get('custom_id')
                         ).short,
                         _external=True,
@@ -36,9 +35,7 @@ def add_url():
             ),
             HTTPStatus.CREATED,
         )
-    except ValueError as error:
-        raise InvalidAPIUsage(str(error))
-    except RuntimeError as error:
+    except (ValueError, RuntimeError) as error:
         raise InvalidAPIUsage(str(error))
 
 

@@ -22,7 +22,7 @@ def index_view():
             form=form,
             link_short=url_for(
                 SHORT_LINK_VIEW,
-                short_id=URLMap.form_post(
+                short_id=URLMap.create(
                     original=form.original_link.data, short=short
                 ).short,
                 _external=True,

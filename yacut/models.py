@@ -24,7 +24,7 @@ class URLMap(db.Model):
         return URLMap.query.filter_by(short=short).first()
 
     @staticmethod
-    def get_unique_short_id():
+    def short_id():
         for _ in range(REPETITIONS_UNIQUE_SHORT):
             short = ''.join(
                 random.sample(
@@ -34,29 +34,15 @@ class URLMap(db.Model):
             )
             if not URLMap.get(short):
                 return short
+        return URLMap.short_id()
 
     @staticmethod
-    def save_a_record(original, short):
-        url_map = URLMap(original=original, short=short)
-        db.session.add(url_map)
-        db.session.commit()
-        return url_map
-
-    @staticmethod
-    def form_post(original, short):
-        if not short:
-            short = URLMap.get_unique_short_id()
-        else:
-            if URLMap.get(short):
-                raise RuntimeError(ERROR_UNIQUE_SHORT.format(short=short))
-        return URLMap.save_a_record(original, short)
-
-    @staticmethod
-    def json_post(original, short):
+    def create(original, short):
         if len(original) > LENGTH_ORIGINAL:
             raise ValueError(ERROR_LENGTH_ORIGINAL)
+
         if not short:
-            short = URLMap.get_unique_short_id()
+            short = URLMap.short_id()
         else:
             if (
                 len(short) > LENGTH_SHORT or
@@ -65,4 +51,8 @@ class URLMap(db.Model):
                 raise ValueError(ERROR_SHORT)
             if URLMap.get(short):
                 raise RuntimeError(ERROR_UNIQUE_SHORT.format(short=short))
-        return URLMap.save_a_record(original, short)
+
+        url_map = URLMap(original=original, short=short)
+        db.session.add(url_map)
+        db.session.commit()
+        return url_map

@@ -26,7 +26,6 @@
 
 4. Создаем базу данных. 
 ```bash
-    flask db migrate
     flask db upgrade
 ```
 

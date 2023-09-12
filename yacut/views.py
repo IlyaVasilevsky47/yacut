@@ -7,7 +7,7 @@ from . import app
 from .forms import URLMapForm
 from .models import URLMap
 
-FLASH_UNIQUE_SHORT = 'Имя {short} уже занято!'
+FLASH_UNIQUE_SHORT = 'Имя {short_id} уже занято!'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -15,7 +15,7 @@ def index_view():
     form = URLMapForm()
     if not form.validate_on_submit():
         return render_template('index.html', form=form)
-    short = form.custom_id.data
+    short_id = form.custom_id.data
     try:
         return render_template(
             'index.html',
@@ -23,7 +23,7 @@ def index_view():
             link_short=url_for(
                 SHORT_LINK_VIEW,
                 short_id=URLMap.create(
-                    original=form.original_link.data, short=short
+                    original=form.original_link.data, short_id=short_id
                 ).short,
                 _external=True,
             ),
@@ -31,7 +31,7 @@ def index_view():
     except ValueError as error:
         flash(error)
     except RuntimeError:
-        flash(FLASH_UNIQUE_SHORT.format(short=short))
+        flash(FLASH_UNIQUE_SHORT.format(short_id=short_id))
     return render_template('index.html', form=form)
 
 

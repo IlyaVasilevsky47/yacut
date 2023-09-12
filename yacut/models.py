@@ -32,26 +32,25 @@ class URLMap(db.Model):
                     LENGTH_UNIQUE_SHORT
                 )
             )
-            if not URLMap.get(short):
-                return short
-        return URLMap.short_id()
+        if URLMap.get(short):
+            raise RuntimeError(ERROR_UNIQUE_SHORT.format(short=short))
+        return short
 
     @staticmethod
-    def create(original, short):
-        if len(original) > LENGTH_ORIGINAL:
-            raise ValueError(ERROR_LENGTH_ORIGINAL)
-
+    def create(original, short, json=False):
         if not short:
             short = URLMap.short_id()
         else:
+            if URLMap.get(short):
+                raise RuntimeError(ERROR_UNIQUE_SHORT.format(short=short))
+        if json:
+            if len(original) > LENGTH_ORIGINAL:
+                raise ValueError(ERROR_LENGTH_ORIGINAL)
             if (
                 len(short) > LENGTH_SHORT or
                 re.search(REGULAR_EXPRESSION, short) is None
             ):
                 raise ValueError(ERROR_SHORT)
-            if URLMap.get(short):
-                raise RuntimeError(ERROR_UNIQUE_SHORT.format(short=short))
-
         url_map = URLMap(original=original, short=short)
         db.session.add(url_map)
         db.session.commit()

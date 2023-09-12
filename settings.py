@@ -1,5 +1,6 @@
 import os
 import string
+import re
 
 SHORT_LINK_VIEW = 'short_view'
 LENGTH_ORIGINAL = 2000
@@ -7,7 +8,7 @@ LENGTH_SHORT = 16
 LENGTH_UNIQUE_SHORT = 6
 SYMBOLS_UNIQUE_SHORT = string.ascii_letters + string.digits
 REPETITIONS_UNIQUE_SHORT = 4
-REGULAR_EXPRESSION = rf'^{[SYMBOLS_UNIQUE_SHORT]}+$'
+REGULAR_EXPRESSION = rf'^[{re.escape(SYMBOLS_UNIQUE_SHORT)}]+$'
 
 
 class Config():

@@ -27,7 +27,9 @@ def add_url():
                     short_link=url_for(
                         SHORT_LINK_VIEW,
                         short_id=URLMap.create(
-                            original=data['url'], short=data.get('custom_id')
+                            original=data['url'],
+                            short=data.get('custom_id'),
+                            json=True
                         ).short,
                         _external=True,
                     ),

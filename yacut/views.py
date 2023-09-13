@@ -23,7 +23,8 @@ def index_view():
             link_short=url_for(
                 SHORT_LINK_VIEW,
                 short_id=URLMap.create(
-                    original=form.original_link.data, short_id=short_id
+                    original=form.original_link.data,
+                    short_id=short_id if short_id else URLMap.short_id()
                 ).short,
                 _external=True,
             ),

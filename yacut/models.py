@@ -24,24 +24,22 @@ class URLMap(db.Model):
         return URLMap.query.filter_by(short=short_id).first()
 
     @staticmethod
-    def short_id(short_id):
-        if not short_id:
-            for _ in range(REPETITIONS_UNIQUE_SHORT):
-                short_id = ''.join(
-                    random.sample(
-                        SYMBOLS_UNIQUE_SHORT,
-                        LENGTH_UNIQUE_SHORT
-                    )
+    def short_id():
+        for _ in range(REPETITIONS_UNIQUE_SHORT):
+            short_id = ''.join(
+                random.sample(
+                    SYMBOLS_UNIQUE_SHORT,
+                    LENGTH_UNIQUE_SHORT
                 )
-                if not URLMap.get(short_id):
-                    return short_id
-        if URLMap.get(short_id):
-            raise RuntimeError(ERROR_UNIQUE_SHORT.format(short_id=short_id))
-        return short_id
+            )
+            if not URLMap.get(short_id):
+                return short_id
+        raise RuntimeError(ERROR_UNIQUE_SHORT.format(short_id=short_id))
 
     @staticmethod
     def create(original, short_id, full_validation=False):
-        short_id = URLMap.short_id(short_id)
+        if URLMap.get(short_id):
+            raise RuntimeError(ERROR_UNIQUE_SHORT.format(short_id=short_id))
         if full_validation:
             if len(original) > LENGTH_ORIGINAL:
                 raise ValueError(ERROR_LENGTH_ORIGINAL)

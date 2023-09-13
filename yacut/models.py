@@ -38,6 +38,7 @@ class URLMap(db.Model):
 
     @staticmethod
     def create(original, short_id, full_validation=False):
+        short_id = short_id if short_id else URLMap.short_id()
         if URLMap.get(short_id):
             raise RuntimeError(ERROR_UNIQUE_SHORT.format(short_id=short_id))
         if full_validation:

@@ -28,10 +28,8 @@ def add_url():
                         SHORT_LINK_VIEW,
                         short_id=URLMap.create(
                             original=data['url'],
-                            short_id=data.get('custom_id')
-                            if data.get('custom_id')
-                            else URLMap.short_id(),
-                            full_validation=True,
+                            short_id=data.get('custom_id'),
+                            full_validation=True
                         ).short,
                         _external=True,
                     ),

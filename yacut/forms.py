@@ -3,6 +3,8 @@ from settings import LENGTH_ORIGINAL, LENGTH_SHORT, REGULAR_EXPRESSION
 from wtforms import SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional, Regexp
 
+from .models import URLMap
+
 ORIGINAL_LINK = 'Длинная ссылка'
 CUSTOM_ID = 'Ваш вариант короткой ссылки'
 SUBMIT = 'Создать'
@@ -24,6 +26,7 @@ class URLMapForm(FlaskForm):
     )
     custom_id = URLField(
         CUSTOM_ID,
+        default=URLMap.short_id(),
         validators=[
             Length(max=LENGTH_SHORT),
             Optional(),

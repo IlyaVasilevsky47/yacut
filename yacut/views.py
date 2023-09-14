@@ -13,10 +13,6 @@ def index_view():
     form = URLMapForm()
     if not form.validate_on_submit():
         return render_template('index.html', form=form)
-    if not form.custom_id.data:
-        short_id = URLMap.generation_short_id()
-    else:
-        short_id = form.custom_id.data
     try:
         return render_template(
             'index.html',
@@ -25,7 +21,7 @@ def index_view():
                 SHORT_LINK_VIEW,
                 short_id=URLMap.create(
                     original=form.original_link.data,
-                    short_id=short_id
+                    short_id=form.custom_id.data
                 ).short,
                 _external=True,
             ),

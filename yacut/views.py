@@ -11,13 +11,13 @@ from .models import URLMap
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
     form = URLMapForm()
+    if not form.validate_on_submit():
+        return render_template('index.html', form=form)
+    if not form.custom_id.data:
+        short_id = URLMap.generation_short_id()
+    else:
+        short_id = form.custom_id.data
     try:
-        if not form.validate_on_submit():
-            return render_template('index.html', form=form)
-        if not form.custom_id.data:
-            short_id = URLMap.short_id()
-        else:
-            short_id = form.custom_id.data
         return render_template(
             'index.html',
             form=form,

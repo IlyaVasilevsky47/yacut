@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from settings import LENGTH_ORIGINAL, LENGTH_SHORT, REGULAR_EXPRESSION
 from wtforms import SubmitField, URLField
-from wtforms.validators import DataRequired, Length, Optional, Regexp
+from wtforms.validators import (DataRequired, Length, Optional, Regexp,
+                                ValidationError)
 
 from .models import URLMap
 
@@ -38,5 +39,5 @@ class URLMapForm(FlaskForm):
 
     def validate_custom_id(self, field):
         if field.data and URLMap.get(field.data):
-            raise RuntimeError(FLASH_UNIQUE_SHORT.format(short_id=field.data))
+            raise ValidationError(FLASH_UNIQUE_SHORT.format(short_id=field.data))
         return field.data

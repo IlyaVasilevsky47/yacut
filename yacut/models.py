@@ -24,7 +24,7 @@ class URLMap(db.Model):
         return URLMap.query.filter_by(short=short_id).first()
 
     @staticmethod
-    def short_id():
+    def generation_short_id():
         for _ in range(REPETITIONS_UNIQUE_SHORT):
             short_id = ''.join(
                 random.sample(
@@ -39,19 +39,20 @@ class URLMap(db.Model):
     @staticmethod
     def create(original, short_id=None, validation=False):
         if validation:
-            if short_id in [None, ""]:
-                short_id = URLMap.short_id()
-            if len(original) > LENGTH_ORIGINAL:
-                raise ValueError(ERROR_LENGTH_ORIGINAL)
-            if (
-                len(short_id) > LENGTH_SHORT or
-                re.search(REGULAR_EXPRESSION, short_id) is None
-            ):
-                raise ValueError(ERROR_SHORT)
-            if URLMap.get(short_id):
-                raise RuntimeError(
-                    ERROR_UNIQUE_SHORT.format(short_id=short_id)
-                )
+            if short_id:
+                if len(original) > LENGTH_ORIGINAL:
+                    raise ValueError(ERROR_LENGTH_ORIGINAL)
+                if (
+                    len(short_id) > LENGTH_SHORT or
+                    re.search(REGULAR_EXPRESSION, short_id) is None
+                ):
+                    raise ValueError(ERROR_SHORT)
+                if URLMap.get(short_id):
+                    raise RuntimeError(
+                        ERROR_UNIQUE_SHORT.format(short_id=short_id)
+                    )
+            else:
+                short_id = URLMap.generation_short_id()
         url_map = URLMap(original=original, short=short_id)
         db.session.add(url_map)
         db.session.commit()

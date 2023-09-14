@@ -13,17 +13,18 @@ FLASH_UNIQUE_SHORT = 'Имя {short_id} уже занято!'
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
     form = URLMapForm()
-    if not form.validate_on_submit():
-        return render_template('index.html', form=form)
-    short_id = form.custom_id.data
     try:
+        if not form.validate_on_submit():
+            return render_template('index.html', form=form)
+        short_id = form.custom_id.data
         return render_template(
             'index.html',
             form=form,
             link_short=url_for(
                 SHORT_LINK_VIEW,
                 short_id=URLMap.create(
-                    original=form.original_link.data, short_id=short_id
+                    original=form.original_link.data,
+                    short_id=short_id
                 ).short,
                 _external=True,
             ),

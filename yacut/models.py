@@ -37,10 +37,10 @@ class URLMap(db.Model):
         raise RuntimeError(ERROR_UNIQUE_SHORT.format(short_id=short_id))
 
     @staticmethod
-    def create(original, short_id, full_validation=False):
-        if URLMap.get(short_id):
-            raise RuntimeError(ERROR_UNIQUE_SHORT.format(short_id=short_id))
-        if full_validation:
+    def create(original, short_id=None, validation=False):
+        if validation:
+            if short_id in [None, ""]:
+                short_id = URLMap.short_id()
             if len(original) > LENGTH_ORIGINAL:
                 raise ValueError(ERROR_LENGTH_ORIGINAL)
             if (
@@ -48,6 +48,10 @@ class URLMap(db.Model):
                 re.search(REGULAR_EXPRESSION, short_id) is None
             ):
                 raise ValueError(ERROR_SHORT)
+            if URLMap.get(short_id):
+                raise RuntimeError(
+                    ERROR_UNIQUE_SHORT.format(short_id=short_id)
+                )
         url_map = URLMap(original=original, short=short_id)
         db.session.add(url_map)
         db.session.commit()

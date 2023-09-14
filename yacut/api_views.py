@@ -19,9 +19,6 @@ def add_url():
         raise InvalidAPIUsage(NO_BODY_REQUEST)
     if 'url' not in data:
         raise InvalidAPIUsage(URL_REQUIRED)
-    short_id = data.get('custom_id')
-    if not short_id:
-        short_id = URLMap.short_id()
     try:
         return (
             jsonify(
@@ -31,8 +28,8 @@ def add_url():
                         SHORT_LINK_VIEW,
                         short_id=URLMap.create(
                             original=data['url'],
-                            short_id=short_id,
-                            full_validation=True
+                            short_id=data.get('custom_id'),
+                            validation=True
                         ).short,
                         _external=True,
                     ),

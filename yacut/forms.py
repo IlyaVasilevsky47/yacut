@@ -39,5 +39,7 @@ class URLMapForm(FlaskForm):
 
     def validate_custom_id(self, field):
         if field.data and URLMap.get(field.data):
-            raise ValidationError(FLASH_UNIQUE_SHORT.format(short_id=field.data))
+            raise ValidationError(
+                FLASH_UNIQUE_SHORT.format(short_id=field.data)
+            )
         return field.data

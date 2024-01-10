@@ -1,4 +1,5 @@
-# yacut
+# YaCut
+
 Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 
 ## Основная возможность:
@@ -8,37 +9,43 @@
 ## Запуск проекта:
 1. Клонируем проект.
 ```bash
-    git clone git@github.com:IlyaVasilevsky47/yacut.git
+git clone git@github.com:IlyaVasilevsky47/yacut.git
 ```
 
 2. Создаем и активируем виртуальное окружение.
 ```bash
-    python -m venv venv
-    # Windows
-    source venv/scripts/activate
+python -m venv venv
+source venv/scripts/activate
 ```
 
 3. Обновляем менеджер пакетов pip и устанавливаем зависимости из файла requirements.txt.
 ```bash
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-4. Создаем базу данных. 
-```bash
-    flask db upgrade
+4. Создаем файл .env и заполняем его. 
+```
+FLASK_APP=yacut
+# FLASK_ENV=development
+# SECRET_KEY=8f42a73054b1749f8f58848be5e6502c
+# DATABASE_URI=sqlite:///db.sqlite3
 ```
 
-5. Запускаем проект.
+5. Создаем базу данных. 
 ```bash
-    flask run
+flask db upgrade
+```
+
+6. Запускаем проект.
+```bash
+flask run
 ```
 
 ## Автор:
 - Василевский И.А.
 - [Почта](vasilevskijila047@gmail.com)
 - [Вконтакте](https://vk.com/ilya.vasilevskiy47)
-
 
 ## Технический стек
 - Python 3.7.9

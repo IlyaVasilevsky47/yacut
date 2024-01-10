@@ -28,6 +28,6 @@ jobs:
 
     - name: Test with pytest
       run: |
-        export FLASK_APP=myapp 
+        export FLASK_APP=yacut 
         flask db upgrade
         py.test

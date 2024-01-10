@@ -1,6 +1,6 @@
 # YaCut
 
-[![CI](https://github.com/IlyaVasilevsky47/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/IlyaVasilevsky47/hw05_final/actions/workflows/python-app.yml)
+[![CI](https://github.com/IlyaVasilevsky47/yacut/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/IlyaVasilevsky47/yacut/actions/workflows/main.yml)
 
 ![Screenshot]()
 

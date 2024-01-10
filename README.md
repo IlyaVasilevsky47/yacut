@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/IlyaVasilevsky47/yacut/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/IlyaVasilevsky47/yacut/actions/workflows/main.yml)
 
-![Screenshot]()
+![Screenshot](https://github.com/IlyaVasilevsky47/yacut/blob/master/readme_img/website.png)
 
 Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 

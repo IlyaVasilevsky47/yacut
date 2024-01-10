@@ -33,7 +33,7 @@ pip install -r requirements.txt
 FLASK_APP=yacut
 # FLASK_ENV=development
 # SECRET_KEY=8f42a73054b1749f8f58848be5e6502c
-# DATABASE_URI=sqlite:///db.sqlite3
+DATABASE_URI=sqlite:///db.sqlite3
 ```
 
 5. Создаем базу данных. 

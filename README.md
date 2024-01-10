@@ -48,7 +48,7 @@ flask run
 
 ## Автор:
 - Василевский И.А.
-- [GitHub аккаунт](https://github.com/IlyaVasilevsky47)
+- [GitHub](https://github.com/IlyaVasilevsky47)
 - [Почта](vasilevskijila047@gmail.com)
 - [Вконтакте](https://vk.com/ilya.vasilevskiy47)
 

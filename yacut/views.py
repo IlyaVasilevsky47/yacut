@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from flask import abort, flash, redirect, render_template, url_for
+
 from settings import SHORT_LINK_VIEW
 
 from . import app

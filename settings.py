@@ -1,6 +1,6 @@
 import os
-import string
 import re
+import string
 
 SHORT_LINK_VIEW = 'short_view'
 LENGTH_ORIGINAL = 2000

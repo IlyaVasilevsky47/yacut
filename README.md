@@ -1,5 +1,9 @@
 # YaCut
 
+[![CI](https://github.com/IlyaVasilevsky47/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/IlyaVasilevsky47/hw05_final/actions/workflows/python-app.yml)
+
+![Screenshot]()
+
 Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 
 ## Основная возможность:
